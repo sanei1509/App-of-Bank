@@ -64,6 +64,9 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // Funciones
 // Mostramos el deposito y los retiros de dinero en pantalla
 const displayMovements = function (movements) {
+  // Limpiamos
+  containerMovements.innerHTML = ''; // .textContent = 0;
+
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'Deposito' : 'Retiro';
     const typeClass = mov > 0 ? 'deposit' : 'withdrawal';
@@ -77,7 +80,7 @@ const displayMovements = function (movements) {
       </div>
     `;
     // ahora queremos insertar este codigo html al container
-    containerMovements.insertAdjacentHTML(html);
+    containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
 // Calculamos el Saldo total de nuestra cuenta
@@ -86,6 +89,42 @@ const calcPrintBalance = function (movements) {
   labelBalance.textContent = `$${balance}`;
 };
 calcPrintBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  // calculamos ingresos/incomes
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `$${incomes}`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `$${Math.abs(outcomes)}`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((interest, index, array) => {
+      console.log(array);
+      return interest >= 1;
+    })
+    .reduce((acc, interest) => acc + interest, 0);
+
+  labelSumInterest.textContent = `$${interest}`;
+};
+calcDisplaySummary(account1.movements);
+
+const createUserName = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES

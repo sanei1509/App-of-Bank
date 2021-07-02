@@ -154,27 +154,6 @@ movements.forEach(function (movement, index, array) {
     );
   }
 });
-// 0: function(200)
-// 1: function(450)
-// 2: function(400)
-
-// MAPS and SETS with FOR EACH();
-
-const currencies = new Map([
-  ['USD', 'United States dollar'], // [KEY , VALUE];
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-currencies.forEach(function (value, key, map) {
-  console.log(`${value} - abreviatura (${key})`);
-});
-
-const currenciesUnique = new Set([['USD', 'EUR', 'GBP']]);
-
-currenciesUnique.forEach(function (value, _, mp) {
-  console.log(`${value}`);
-});
 
 // const mySet = new Set();
 
@@ -183,3 +162,37 @@ currenciesUnique.forEach(function (value, _, mp) {
 // mySet.add('some text');
 
 // console.log(mySet);
+
+// Encadenamiento de metodos / CONVERTIR depositos de pesos a dolares
+const dolarToUsd = 43;
+
+// Analogìa - tuberia donde entran datos y salen los mismos pero con cambios
+// map(element, index, array)     /    reduce(acc, element, index, array)
+const depositsInUsd = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, movimientos) => mov * dolarToUsd)
+  .reduce((acc, mov, i, movimientos) => acc + mov);
+
+/* 
+en caso de llamar el array para buscar problemas no obtenemos el "array" inicial sino al
+  que esta "encadenado"
+*/
+
+// MAPS and SETS with FOR EACH();
+const monedas = new Map([
+  ['USD', 'United States dollar'], // [KEY , VALUE];
+  ['EUR', 'Euro'],
+  ['UYU', 'Peso Uruguayo'],
+]);
+
+monedas.forEach(function (value, key, map) {
+  console.log(`${value} - abreviatura (${key})`); // 'USD', 'United States dollar', 'EUR', 'Euro',  'UYU', 'Peso Uruguayo'
+});
+
+// Set - solo guarda los valores únicos
+const currenciesUnique = new Set([['USD', 'EUR', 'UYU', 'USD']]);
+
+// con Set el 'forEach' no funciona igual, "_" = variable desechable
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}`);
+});
