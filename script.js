@@ -117,6 +117,25 @@ const matriz = [2, 2, 4, 5, 6, 7, 2, 12];
 
 const newNumber = matriz.join(',');
 
+// MAPS and SETS with FOR EACH();
+const monedas = new Map([
+  ['USD', 'United States dollar'], // [KEY , VALUE];
+  ['EUR', 'Euro'],
+  ['UYU', 'Peso Uruguayo'],
+]);
+
+monedas.forEach(function (value, key, map) {
+  console.log(`${value} - abreviatura (${key})`); // 'USD', 'United States dollar', 'EUR', 'Euro',  'UYU', 'Peso Uruguayo'
+});
+
+// Set - solo guarda los valores únicos
+const currenciesUnique = new Set([['USD', 'EUR', 'UYU', 'USD']]);
+
+// con Set el 'forEach' no funciona igual, "_" = variable desechable
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}`);
+});
+
 // COMENZAMOS A MOVER DATOS DE CUENTA BANCARIA / de manera simple aún
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -178,21 +197,13 @@ en caso de llamar el array para buscar problemas no obtenemos el "array" inicial
   que esta "encadenado"
 */
 
-// MAPS and SETS with FOR EACH();
-const monedas = new Map([
-  ['USD', 'United States dollar'], // [KEY , VALUE];
-  ['EUR', 'Euro'],
-  ['UYU', 'Peso Uruguayo'],
-]);
+// CHALLENGE 3 , CALC AVERAGE HUMAN AGE
 
-monedas.forEach(function (value, key, map) {
-  console.log(`${value} - abreviatura (${key})`); // 'USD', 'United States dollar', 'EUR', 'Euro',  'UYU', 'Peso Uruguayo'
-});
-
-// Set - solo guarda los valores únicos
-const currenciesUnique = new Set([['USD', 'EUR', 'UYU', 'USD']]);
-
-// con Set el 'forEach' no funciona igual, "_" = variable desechable
-currenciesUnique.forEach(function (value, _, map) {
-  console.log(`${value}`);
-});
+const calcAverageHumanAge = function (ages) {
+  ages
+    .map(age => (age <= 2 ? age * 2 : (age + 16) * 4))
+    .filter(age => age >= 18)
+    .reduce((acc, age, index, array) => {
+      acc + mov / array.length, 0;
+    });
+};
